@@ -1,0 +1,29 @@
+# Node
+node_modules/
+dist/
+build/
+*.log
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.env
+venv/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# VSCode/IDE
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Misc
+.env.*
