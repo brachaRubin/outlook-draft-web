@@ -11,11 +11,26 @@ function App() {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
 
+
+  const validateEmails = (emails: string) => {
+    const emailArray = emails.split(',').map(e => e.trim());
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailArray.every(email => emailRegex.test(email));
+  };
+
+  // Function to handle form submission
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setSuccess(false);
     setError('');
+
+    if (!validateEmails(recipients)) {
+      setError('אחת או יותר מכתובות המייל אינן תקינות.');
+      setLoading(false);
+      return;
+    }
+
     try {
       const formData = new FormData();
       formData.append('subject', subject);
@@ -72,14 +87,14 @@ function App() {
             <label>
               כתובת/ות הנמען (מופרדות בפסיק):
               <input
-               type="email"
-               multiple
-               value={recipients}
-               onChange={e => setRecipients(e.target.value)}
-               required
-               placeholder="example1@mail.com, example2@mail.com"
-              //  pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
-               title="נא להזין כתובת מייל תקינה (ניתן להפריד כמה כתובות בפסיק)"
+                type="text"
+                //  multiple
+                value={recipients}
+                onChange={e => setRecipients(e.target.value)}
+                required
+                placeholder="example1@mail.com, example2@mail.com"
+                //  pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+                title="נא להזין כתובת מייל תקינה (ניתן להפריד כמה כתובות בפסיק)"
               />
             </label>
             <label>
